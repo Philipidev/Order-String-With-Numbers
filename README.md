@@ -72,6 +72,7 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
                 return true;
             return false;
         }
+    }
 
 ```
 <br/>Then all you need to do next e call the OrderBy Method and pass your custom Comparer
