@@ -81,3 +81,18 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
   //Use OrderBy by Linq and call the custom Comparer class
   arrExample = arrExample.OrderBy(ex => ex, new OrderStringNumber()).ToArray();
 ```
+```
+Output:
+  Street 1
+  Street 1B
+  Street 12
+  Street 2
+  Street 2A
+  Street 22C
+  Street 3
+  Street 3A
+  Street 3A1
+  Street 3BC
+  Street 3C
+  Street 4
+```
