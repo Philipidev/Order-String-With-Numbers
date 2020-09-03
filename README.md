@@ -2,7 +2,7 @@
 
 <br/>This is a Custom IComparer to sort an array of strings that have numbers mixed with letters like the following
 ```csharp
-string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 3A1", "Street 3BC", "Street 3A","Street 22C" };
+string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A","Street 22C" };
 ```
 
 <br/><br/>
@@ -10,74 +10,87 @@ string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Stree
 
 To use it is simple, just create a class that inheritate the `IComparer` interface then add or create your custom Comparer
 ```csharp
-  public class OrderStringNumber : IComparer<string>
+    const char PAD = '#';
+
+    public int Compare(string stringA, string stringB)
     {
-        const char PAD = '#';
+        int biggerStringLength = stringA.Length > stringB.Length ? stringA.Length : stringB.Length;
 
-        public int Compare(string stringA, string stringB)
+        stringA = stringA.PadRight(biggerStringLength, PAD);
+        stringB = stringB.PadRight(biggerStringLength, PAD);
+
+        char[] arrayCharA = stringA.ToLower().ToCharArray();
+        char[] arrayCharB = stringB.ToLower().ToCharArray();
+
+        Dictionary<int, char> a = GetNumberSequence(stringA);
+        Dictionary<int, char> b = GetNumberSequence(stringB);
+
+        for (int pos = 0; pos < biggerStringLength; pos++)
         {
-            int biggerStringLength = stringA.Length > stringB.Length ? stringA.Length : stringB.Length;
+            if (arrayCharA[pos] == arrayCharB[pos])
+                continue;
 
-            stringA = stringA.PadRight(biggerStringLength, PAD);
-            stringB = stringB.PadRight(biggerStringLength, PAD);
-
-            char[] arrayCharA = stringA.ToLower().ToCharArray();
-            char[] arrayCharB = stringB.ToLower().ToCharArray();
-
-            int result = 0;
-
-            for (int pos = 0; pos < biggerStringLength; pos++)
-            {
-                if (arrayCharA[pos] == arrayCharB[pos])
-                    continue;
-
-                if (IsNumber(arrayCharB[pos]) && IsLetter(arrayCharA[pos]))
+            if (a.Keys.Contains(pos))
+                for (int i = 0; i < a.Count; i++)
                 {
-                    result = -1;
-                    break;
+                    if (a.Keys.Count > b.Keys.Count)
+                        return 1;
+
+                    if (a.Keys.Count < b.Keys.Count)
+                        return -1;
+
+                    if (Convert.ToInt32(string.Join("", a.Values)) > Convert.ToInt32(string.Join("", b.Values)))
+                        return 1;
+
+                    if (Convert.ToInt32(string.Join("", a.Values)) < Convert.ToInt32(string.Join("", b.Values)))
+                        return -1;
                 }
 
-                if (IsNumber(arrayCharA[pos]) && IsLetter(arrayCharB[pos]))
-                {
-                    result = 1;
-                    break;
-                }
+            if (IsNumber(arrayCharB[pos]) && IsLetter(arrayCharA[pos]))
+                return -1;
 
-                if (arrayCharA[pos] > arrayCharB[pos])
-                {
-                    result = 1;
-                    break;
-                }
+            if (IsNumber(arrayCharA[pos]) && IsLetter(arrayCharB[pos]))
+                return 1;
 
-                if (arrayCharA[pos] < arrayCharB[pos])
-                {
-                    result = -1;
-                    break;
-                }
-            }
+            if (arrayCharA[pos] > arrayCharB[pos])
+                return 1;
 
-            return result;
+            if (arrayCharA[pos] < arrayCharB[pos])
+                return -1;
+
         }
 
-        private bool IsLetter(char letter)
-        {
-            if (letter < 48 || letter > 57)
-                return true;
-            return false;
-        }
+        return 0;
+    }
 
-        private bool IsNumber(char letter)
-        {
-            if (letter >= 48 && letter <= 57)
-                return true;
-            return false;
-        }
+    private Dictionary<int, char> GetNumberSequence(string str)
+    {
+        Dictionary<int, char> DictPosNumber = new Dictionary<int, char>();
+        for (int i = 0; i < str.Length; i++)
+            if (IsNumber(str[i]))
+                DictPosNumber.Add(i, str[i]);
+
+        return DictPosNumber;
+    }
+
+    private bool IsLetter(char letter)
+    {
+        if (letter != PAD && (letter < 48 || letter > 57))
+            return true;
+        return false;
+    }
+
+    private bool IsNumber(char letter)
+    {
+        if (letter >= 48 && letter <= 57)
+            return true;
+        return false;
     }
 
 ```
 <br/>Then all you need to do next e call the OrderBy Method and pass your custom Comparer
 ```csharp
-  string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 3A1", "Street 3BC", "Street 3A","Street 22C" };
+  string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A","Street 22C" };
 
   //Use OrderBy by Linq and call the custom Comparer class
   arrExample = arrExample.OrderBy(ex => ex, new OrderStringNumber()).ToArray();
@@ -86,14 +99,14 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
 Output:
   Street 1
   Street 1B
-  Street 12
   Street 2
   Street 2A
-  Street 22C
   Street 3
   Street 3A
-  Street 3A1
   Street 3BC
   Street 3C
   Street 4
+  Street 12
+  Street 22C
+  Street 31
 ```
