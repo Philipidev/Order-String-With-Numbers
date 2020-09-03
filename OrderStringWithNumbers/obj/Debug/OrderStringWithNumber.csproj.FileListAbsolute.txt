@@ -5,3 +5,10 @@ C:\Users\phili\source\repos\TesteNoConsole_Framework\TesteNoConsole_Framework\ob
 C:\Users\phili\source\repos\TesteNoConsole_Framework\TesteNoConsole_Framework\obj\Debug\OrderStringWithNumber.csproj.CoreCompileInputs.cache
 C:\Users\phili\source\repos\TesteNoConsole_Framework\TesteNoConsole_Framework\obj\Debug\TesteNoConsole_Framework.exe
 C:\Users\phili\source\repos\TesteNoConsole_Framework\TesteNoConsole_Framework\obj\Debug\TesteNoConsole_Framework.pdb
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.exe.config
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.exe
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.pdb
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\OrderStringWithNumber.csprojAssemblyReference.cache
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\OrderStringWithNumber.csproj.CoreCompileInputs.cache
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.exe
+C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.pdb

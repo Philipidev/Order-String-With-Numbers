@@ -11,7 +11,7 @@ namespace OrderStringWithNumbers
     {
         static void Main(string[] args)
         {
-            string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 3A1", "Street 3BC", "Street 3A","Street 22C" };
+            string[] arrExample = { "Barragem da Vertende do Santo Antônio", "Dique 1", "Dique 10B1", "Dique 11", "Dique 12", "Dique 13", "Dique 14A", "Dique 14B", "Dique 18", "Dique 19", "Dique 19A", "Dique 1A", "Dique 1B", "Dique 1C", "Dique 6A", "Dique 27", "Dique 28", "Dique 29", "Dique 6C", "Sítio Belo Monte", };
 
             //Use OrderBy by Linq and call the custom Comparer class
             arrExample = arrExample.OrderBy(ex => ex, new OrderStringNumber()).ToArray();
