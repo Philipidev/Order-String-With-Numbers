@@ -20,29 +20,31 @@ namespace OrderStringWithNumbers
             char[] arrayCharA = stringA.ToLower().ToCharArray();
             char[] arrayCharB = stringB.ToLower().ToCharArray();
 
-            Dictionary<int, char> a = GetNumberSequence(stringA);
-            Dictionary<int, char> b = GetNumberSequence(stringB);
+            Dictionary<int, char> DictionaryStringA = new Dictionary<int, char>();
+            Dictionary<int, char> DictionaryStringB = new Dictionary<int, char>();
 
             for (int pos = 0; pos < biggerStringLength; pos++)
             {
                 if (arrayCharA[pos] == arrayCharB[pos])
                     continue;
 
-                if (a.Keys.Contains(pos))
-                    for (int i = 0; i < a.Count; i++)
-                    {
-                        if (a.Keys.Count > b.Keys.Count)
-                            return 1;
+                if (IsNumber(arrayCharA[pos]) && IsNumber(arrayCharB[pos]))
+                {
+                    DictionaryStringA = GetNumberSequence(stringA, pos);
+                    DictionaryStringB = GetNumberSequence(stringB, pos);
 
-                        if (a.Keys.Count < b.Keys.Count)
-                            return -1;
+                    if (DictionaryStringA.Keys.Count > DictionaryStringB.Keys.Count)
+                        return 1;
 
-                        if (Convert.ToInt32(string.Join("", a.Values)) > Convert.ToInt32(string.Join("", b.Values)))
-                            return 1;
+                    if (DictionaryStringA.Keys.Count < DictionaryStringB.Keys.Count)
+                        return -1;
 
-                        if (Convert.ToInt32(string.Join("", a.Values)) < Convert.ToInt32(string.Join("", b.Values)))
-                            return -1;
-                    }
+                    if (Convert.ToInt32(string.Join("", DictionaryStringA.Values)) > Convert.ToInt32(string.Join("", DictionaryStringB.Values)))
+                        return 1;
+
+                    if (Convert.ToInt32(string.Join("", DictionaryStringA.Values)) < Convert.ToInt32(string.Join("", DictionaryStringB.Values)))
+                        return -1;
+                }
 
                 if (IsNumber(arrayCharB[pos]) && IsLetter(arrayCharA[pos]))
                     return -1;
@@ -61,12 +63,19 @@ namespace OrderStringWithNumbers
             return 0;
         }
 
-        private Dictionary<int, char> GetNumberSequence(string str)
+        private Dictionary<int, char> GetNumberSequence(string str, int pos = 0)
         {
             Dictionary<int, char> DictPosNumber = new Dictionary<int, char>();
-            for (int i = 0; i < str.Length; i++)
-                if (IsNumber(str[i]))
-                    DictPosNumber.Add(i, str[i]);
+            for (; pos < str.Length; pos++)
+            {
+                if (IsNumber(str[pos]))
+                {
+                    DictPosNumber.Add(pos, str[pos]);
+                    if (pos + 1 < str.Length && IsLetter(str[pos + 1]))
+                        break;
+                }
+            }
+
 
             return DictPosNumber;
         }
