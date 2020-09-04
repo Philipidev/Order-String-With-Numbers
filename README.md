@@ -3,7 +3,6 @@
 <br/>This is a Custom IComparer to sort an array of strings that have numbers mixed with letters like the following
 ```csharp
 string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1B1", "Street 1B2", "Street 1B2a", "Street 1B23", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A", "Street 22C" };
-};
 ```
 
 <br/><br/>
