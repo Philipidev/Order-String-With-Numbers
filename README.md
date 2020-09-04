@@ -2,7 +2,8 @@
 
 <br/>This is a Custom IComparer to sort an array of strings that have numbers mixed with letters like the following
 ```csharp
-string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A","Street 22C" };
+string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1B1", "Street 1B2", "Street 1B2a", "Street 1B23", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A", "Street 22C" };
+};
 ```
 
 <br/><br/>
@@ -22,29 +23,31 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
         char[] arrayCharA = stringA.ToLower().ToCharArray();
         char[] arrayCharB = stringB.ToLower().ToCharArray();
 
-        Dictionary<int, char> a = GetNumberSequence(stringA);
-        Dictionary<int, char> b = GetNumberSequence(stringB);
+        Dictionary<int, char> DictionaryStringA = new Dictionary<int, char>();
+        Dictionary<int, char> DictionaryStringB = new Dictionary<int, char>();
 
         for (int pos = 0; pos < biggerStringLength; pos++)
         {
             if (arrayCharA[pos] == arrayCharB[pos])
                 continue;
 
-            if (a.Keys.Contains(pos))
-                for (int i = 0; i < a.Count; i++)
-                {
-                    if (a.Keys.Count > b.Keys.Count)
-                        return 1;
+            if (IsNumber(arrayCharA[pos]) && IsNumber(arrayCharB[pos]))
+            {
+                DictionaryStringA = GetNumberSequence(stringA, pos);
+                DictionaryStringB = GetNumberSequence(stringB, pos);
 
-                    if (a.Keys.Count < b.Keys.Count)
-                        return -1;
+                if (DictionaryStringA.Keys.Count > DictionaryStringB.Keys.Count)
+                    return 1;
 
-                    if (Convert.ToInt32(string.Join("", a.Values)) > Convert.ToInt32(string.Join("", b.Values)))
-                        return 1;
+                if (DictionaryStringA.Keys.Count < DictionaryStringB.Keys.Count)
+                    return -1;
 
-                    if (Convert.ToInt32(string.Join("", a.Values)) < Convert.ToInt32(string.Join("", b.Values)))
-                        return -1;
-                }
+                if (Convert.ToInt32(string.Join("", DictionaryStringA.Values)) > Convert.ToInt32(string.Join("", DictionaryStringB.Values)))
+                    return 1;
+
+                if (Convert.ToInt32(string.Join("", DictionaryStringA.Values)) < Convert.ToInt32(string.Join("", DictionaryStringB.Values)))
+                    return -1;
+            }
 
             if (IsNumber(arrayCharB[pos]) && IsLetter(arrayCharA[pos]))
                 return -1;
@@ -63,12 +66,19 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
         return 0;
     }
 
-    private Dictionary<int, char> GetNumberSequence(string str)
+    private Dictionary<int, char> GetNumberSequence(string str, int pos = 0)
     {
         Dictionary<int, char> DictPosNumber = new Dictionary<int, char>();
-        for (int i = 0; i < str.Length; i++)
-            if (IsNumber(str[i]))
-                DictPosNumber.Add(i, str[i]);
+        for (; pos < str.Length; pos++)
+        {
+            if (IsNumber(str[pos]))
+            {
+                DictPosNumber.Add(pos, str[pos]);
+                if (pos + 1 < str.Length && IsLetter(str[pos + 1]))
+                    break;
+            }
+        }
+
 
         return DictPosNumber;
     }
@@ -90,23 +100,27 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
 ```
 <br/>Then all you need to do next e call the OrderBy Method and pass your custom Comparer
 ```csharp
-  string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A","Street 22C" };
+  string[] arrExample = { "Street 2A", "Street 3", "Street 4", "Street 3C", "Street 12", "Street 1B", "Street 1B1", "Street 1B2", "Street 1B2a", "Street 1B23", "Street 1", "Street 2", "Street 31", "Street 3BC", "Street 3A", "Street 22C" };
 
   //Use OrderBy by Linq and call the custom Comparer class
   arrExample = arrExample.OrderBy(ex => ex, new OrderStringNumber()).ToArray();
 ```
 ```
 Output:
-  Street 1
-  Street 1B
-  Street 2
-  Street 2A
-  Street 3
-  Street 3A
-  Street 3BC
-  Street 3C
-  Street 4
-  Street 12
-  Street 22C
-  Street 31
+Street 1
+Street 1B
+Street 1B1
+Street 1B2
+Street 1B2a
+Street 1B23
+Street 2
+Street 2A
+Street 3
+Street 3A
+Street 3BC
+Street 3C
+Street 4
+Street 12
+Street 22C
+Street 31
 ```
