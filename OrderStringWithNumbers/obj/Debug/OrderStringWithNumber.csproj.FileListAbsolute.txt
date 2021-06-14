@@ -12,3 +12,10 @@ C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\De
 C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\OrderStringWithNumber.csproj.CoreCompileInputs.cache
 C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.exe
 C:\Users\phili\source\repos\OrderStringWithNumbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.pdb
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.exe.config
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.exe
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\bin\Debug\TesteNoConsole_Framework.pdb
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\obj\Debug\OrderStringWithNumber.csproj.AssemblyReference.cache
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\obj\Debug\OrderStringWithNumber.csproj.CoreCompileInputs.cache
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.exe
+C:\Users\phili\source\repos\Order-String-With-Numbers\OrderStringWithNumbers\obj\Debug\TesteNoConsole_Framework.pdb
