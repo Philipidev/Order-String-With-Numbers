@@ -44,15 +44,14 @@ namespace OrderStringWithNumbers
 
         private int BiggerNumberInSequence(Dictionary<int, char> dictionaryStringA, Dictionary<int, char> dictionaryStringB)
         {
-            int value = 0;
             for (int i = 0; i < dictionaryStringA.Values.Count; i++)
             {
                 if (dictionaryStringA.ElementAt(i).Value > dictionaryStringB.ElementAt(i).Value)
-                    value = 1;
+                    return 1;
                 if (dictionaryStringA.ElementAt(i).Value < dictionaryStringB.ElementAt(i).Value)
-                    value = -1;
+                    return -1;
             }
-            return value;
+            return 0;
         }
 
         private Dictionary<int, char> GetNumberSequence(string str, int pos = 0)
