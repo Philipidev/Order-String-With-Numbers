@@ -49,15 +49,14 @@ To use it is simple, just create a class that inheritate the `IComparer` interfa
 
     private int BiggerNumberInSequence(Dictionary<int, char> dictionaryStringA, Dictionary<int, char> dictionaryStringB)
     {
-        int value = 0;
         for (int i = 0; i < dictionaryStringA.Values.Count; i++)
         {
             if (dictionaryStringA.ElementAt(i).Value > dictionaryStringB.ElementAt(i).Value)
-                value = 1;
+                return 1;
             if (dictionaryStringA.ElementAt(i).Value < dictionaryStringB.ElementAt(i).Value)
-                value = -1;
+                return -1;
         }
-        return value;
+        return 0;
     }
 
     private Dictionary<int, char> GetNumberSequence(string str, int pos = 0)
@@ -111,9 +110,9 @@ Street 3A
 Street 3BC
 Street 3C
 Street 4
-Street 31
 Street 12
 Street 22C
+Street 31
 Street 3378562387471298321
 Street 3478562387471298321
 1829678954691234610345341
