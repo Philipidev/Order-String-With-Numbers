@@ -5,7 +5,19 @@ namespace OrderStringWithNumbers
 {
     public class OrderStringNumber : IComparer<string>
     {
-        const char PAD = '#';
+        private char PAD;
+
+        /// <summary>
+        /// Accept pad to make the right pad of the strings making then the same length
+        /// </summary>
+        /// <param name="PAD">
+        /// Used to make the right pad of the strings making then the same length <br/>
+        /// Lookout the PAD is ignored on the comparison of the strings
+        /// </param>
+        public OrderStringNumber(char PAD = '#') 
+        {
+            PAD = '#';
+        }
 
         public int Compare(string stringA, string stringB)
         {
